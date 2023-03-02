@@ -42,6 +42,10 @@ def do_tts_native(text: str, language: str, file_path: Path):
     tts_native.save_audio(text, file_path, engine)
 
 
+def do_tts_native_pico(text: str, language: str, file_path: Path):
+    tts_native.save_pico2wave_voice(text, language, file_path)
+
+
 do_stt(file_path=file_audio)
 
 example_text = """
@@ -54,6 +58,12 @@ do_tts_native(
     example_text,
     language="de",
     file_path=file_audio_processed.format(text="native_example.wav"),
+)
+
+do_tts_native_pico(
+    example_text,
+    language="de",
+    file_path=file_audio_processed.format(text="native_pico_example.wav"),
 )
 
 do_tts_dl(

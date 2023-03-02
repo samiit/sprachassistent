@@ -186,3 +186,12 @@ language_dict = [
 ]
 
 language_dict = {a: b for a, b in language_dict}
+
+pico_language_dict = {
+    "en": "en-US",
+    "en-GB": "en-GB",
+    "de": "de-DE",
+    "es": "es-ES",
+    "fr": "fr-FR",
+    "it": "it-IT",
+}

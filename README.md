@@ -18,3 +18,12 @@ There are three components to this:
 ## Technical details
 
 The code base is primarily Python and builds on the shoulders of giants!
+
+## Requirements
+
+In Linux environment, install some of the voice dependencies:
+
+```
+sudo apt update && sudo apt install espeak ffmpeg libespeak1
+sudo apt install libttspico-utils
+```
