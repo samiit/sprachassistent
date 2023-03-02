@@ -2,7 +2,7 @@ from pathlib import Path
 import os
 
 
-from utils import stt, tts, constants
+from utils import stt, constants, tts_dl, tts_native
 
 file_audio = "data/wenn_der_koennig.wav"
 file_audio_processed = "data/processed/{text}"
@@ -17,7 +17,7 @@ def do_stt(file_path: Path):
     print()
 
 
-def do_tts(text: str, language: str, file_path: Path):
+def do_tts_dl(text: str, language: str, file_path: Path):
     if language == "en":
         speaker = "lj_16khz"
     elif language == "de":
@@ -26,18 +26,37 @@ def do_tts(text: str, language: str, file_path: Path):
         raise Exception(
             f"Language {constants.language_dict[language]} not supported yet."
         )
-    device = tts.get_device()
-    model, symbols, sample_rate, apply_tts = tts.get_model_params(
+    device = tts_dl.get_device()
+    model, symbols, sample_rate, apply_tts = tts_dl.get_model_params(
         device, language, speaker
     )
-    audio_tensor = tts.get_audio(text, model, symbols, sample_rate, apply_tts, device)
-    tts.write_audio(audio_tensor, sample_rate, file_path)
+    audio_tensor = tts_dl.get_audio(
+        text, model, symbols, sample_rate, apply_tts, device
+    )
+    tts_dl.write_audio(audio_tensor, sample_rate, file_path)
+
+
+def do_tts_native(text: str, language: str, file_path: Path):
+    engine = tts_native.get_pyttsx3_engine(language=language)
+    tts_native.speak_text(text, engine)
+    tts_native.save_audio(text, file_path, engine)
 
 
 do_stt(file_path=file_audio)
 
-example_text = "In deinem Haus bin ich gern Vater."
-do_tts(
+example_text = """
+Mit jedem Atemzug wird mir immer mehr bewußt, 
+dass diese Weltvolltrug mir eigentlich zu wieder sein muss.
+Doch es ändert sich nicht, egal wie stark mein Wille ist.
+Ich schaffe es nicht zu tun, was es normal ist.
+"""
+do_tts_native(
+    example_text,
+    language="de",
+    file_path=file_audio_processed.format(text="native_example.wav"),
+)
+
+do_tts_dl(
     text=example_text,
     language="de",
     file_path=file_audio_processed.format(text="example.wav"),
