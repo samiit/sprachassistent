@@ -1,8 +1,7 @@
 from pathlib import Path
-import os
 
 
-from utils import stt, constants, tts_dl, tts_native
+from utils import stt, constants, tts_dl_silero, tts_native
 
 file_audio = "data/wenn_der_koennig.wav"
 file_audio_processed = "data/processed/{text}"
@@ -26,14 +25,14 @@ def do_tts_dl(text: str, language: str, file_path: Path):
         raise Exception(
             f"Language {constants.language_dict[language]} not supported yet."
         )
-    device = tts_dl.get_device()
-    model, symbols, sample_rate, apply_tts = tts_dl.get_model_params(
+    device = tts_dl_silero.get_device()
+    model, symbols, sample_rate, apply_tts = tts_dl_silero.get_model_params(
         device, language, speaker
     )
-    audio_tensor = tts_dl.get_audio(
+    audio_tensor = tts_dl_silero.get_audio(
         text, model, symbols, sample_rate, apply_tts, device
     )
-    tts_dl.write_audio(audio_tensor, sample_rate, file_path)
+    tts_dl_silero.write_audio(audio_tensor, sample_rate, file_path)
 
 
 def do_tts_native(text: str, language: str, file_path: Path):
