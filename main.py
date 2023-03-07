@@ -49,9 +49,9 @@ do_stt(file_path=file_audio)
 
 example_text = """
 Mit jedem Atemzug wird mir immer mehr bewußt, 
-dass diese Weltvolltrug mir eigentlich zu wieder sein muss.
+dass diese Welt voll trug mir eigentlich zuwider sein muss.
 Doch es ändert sich nicht, egal wie stark mein Wille ist.
-Ich schaffe es nicht zu tun, was es normal ist.
+Mein Herz es dreht nicht um, wenn du mir nicht gnädig bist.
 """
 do_tts_native(
     example_text,
